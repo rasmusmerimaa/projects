@@ -1,0 +1,7 @@
+1) Paigaldasin eeldused:
+    Terraform
+    Lisasin PATHi terraformi
+    Podman Desktop koos extensionitega
+    Ansible (Kasutasin Cygwin, alternatiiv oleks WSL - Podman Desktop installides sain aru, et ümber selle ei saa)
+
+
