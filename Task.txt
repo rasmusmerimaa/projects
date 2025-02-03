@@ -1,0 +1,28 @@
+Paigaldada konteinerisse Apache Airflow ning luua ja seadistada dag, mis jälgib Airflow mälukasutust ning saadab eposti teavituse, kui mälukasutus ületab X MB-d.
+
+Piirangud
+Lahendus peab olema käivitatav Windowsi operatsiooni süsteemiga arvutis.
+Konteineri loomiseks kasutada Terraformi ning Airflow seadistamiseks Ansibled.
+Konteinerite haldamiseks kasutada Podman nimelist konteinerite haldamise vahendit. Millele on loodu Podman Desktop nimeline graafiline rakendus.
+Tulenevalt sellest, et Ansible ei ole käivitatav Windowsi operatsiooni süsteemist on vajalik, et Ansible käivitamine toimub eraldi konteinerist. Seda konteinerit võib käsitleda, kui haldusterminali.
+Konteinerite valikute korral kasutada linuxi Ubuntu distributisooni omi.
+
+Nõuded
+•	Konteineri(te) loomiseks kasutatud Terraformi
+•	Airflow on seadistatud Ansiblega
+•	Airflow dag kontrollib Airflow protsessi mälukautust
+•	Airflow dag on seadistatud saatma teavituse epostile
+
+Lahendus
+•	Esitada juhend lahenduse käivitamiseks sh eeldused ja lahenduse skriptid, kas Git'i või muu vahendusel.
+•	Palume töö esitamisel mitte kasutada pilvelahendusi nagu Google Drive vms
+
+Lisa info
+Podman-i kasutamine terraformiga nginx veebiserveri näitel.
+Vt faili main.tf (manuses)
+
+Käivitamise käsud
+1.	terraform init
+2.	terraform validate
+3.	terraform apply
+4.	http://localhost:8000/
