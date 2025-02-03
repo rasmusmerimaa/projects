@@ -1,0 +1,6 @@
+[airflow]
+airflow ansible_connection=podman
+ansible_podman_extra_args=--url=unix:///run/user/0/podman/podman.sock
+
+[local]
+localhost ansible_connection=local

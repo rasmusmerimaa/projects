@@ -1,0 +1,7 @@
+---
+- name: Configure Airflow container
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Copy custom airflow.cfg into Airflow container
+      command: podman cp {{ playbook_dir }}/../airflow.cfg airflow:/opt/airflow/airflow.cfg

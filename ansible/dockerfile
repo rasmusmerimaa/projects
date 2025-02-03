@@ -1,0 +1,12 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y ansible docker.io podman
+
+WORKDIR /data
+
+COPY inventory inventory
+COPY playbook.yaml playbook.yaml
+COPY airflow.yaml airflow.yaml
+COPY ansible.cfg ansible.cfg
+
+ENV ANSIBLE_CONFIG=/data/ansible.cfg
