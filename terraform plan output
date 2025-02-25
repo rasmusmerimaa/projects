@@ -1,0 +1,457 @@
+PS C:\Users\Rasmus\IdeaProjects\projects> terraform plan
+docker_volume.postgres_data: Refreshing state... [id=postgres_db_volume]
+docker_network.airflow_network: Refreshing state... [id=91e56995a9b63e3d4a9c2f2f435b57e83b365ce5765ade9ae7a4d7be08355ce3]
+docker_container.redis: Refreshing state... [id=7749f1e553bbf6e01194db4ea970fc557c6acdc6b639bddd405111a4882515ad]
+docker_container.postgres: Refreshing state... [id=cc0d1fc923e9acd64eb12d39bea1aa2fbd63fd2fd515b1117b731042945b7d8b]
+docker_container.airflow_init: Refreshing state... [id=86743d3f0c5940e701a497ac70056da8c97b6eea9c7c69895a222008b01bd787]
+docker_container.airflow_scheduler: Refreshing state... [id=41e5d58903dbade6d9f3f4dd51b9f675644f2db8830fa8c10de5a923952eb6fa]
+docker_container.airflow_triggerer: Refreshing state... [id=5b896de0181933641eb0e3d02ac0deff06ac90ed8930795d0c3af94635577c14]
+docker_container.airflow_webserver: Refreshing state... [id=040bce9706abb6c3b9f83f2b17bb460aeb64f0a885e993bc4c8bad18c0a80391]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.airflow_init will be created
+  + resource "docker_container" "airflow_init" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "-c",
+          + "airflow db upgrade && airflow users create --username airflow --password airflow --firstname Airflow --lastname Admin --role Admin --email airflow@example.com",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = [
+          + "/bin/bash",
+        ]
+      + env                                         = [
+          + "AIRFLOW_UID=50000",
+          + "AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0",
+          + "AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=false",
+          + "AIRFLOW__CORE__EXECUTOR=CeleryExecutor",
+          + "AIRFLOW__CORE__FERNET_KEY=some_random_key",
+          + "AIRFLOW__CORE__LOAD_EXAMPLES=true",
+          + "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "apache/airflow:2.10.4"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "airflow-init"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + user                                        = "0:0"
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_container.airflow_scheduler will be created
+  + resource "docker_container" "airflow_scheduler" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "scheduler",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "AIRFLOW_UID=50000",
+          + "AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0",
+          + "AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=false",
+          + "AIRFLOW__CORE__EXECUTOR=CeleryExecutor",
+          + "AIRFLOW__CORE__FERNET_KEY=some_random_key",
+          + "AIRFLOW__CORE__LOAD_EXAMPLES=true",
+          + "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__SMTP__SMTP_HOST=smtp.gmail.com",
+          + "AIRFLOW__SMTP__SMTP_MAIL_FROM=your_email@gmail.com",
+          + "AIRFLOW__SMTP__SMTP_PASSWORD=your_app_password",
+          + "AIRFLOW__SMTP__SMTP_PORT=587",
+          + "AIRFLOW__SMTP__SMTP_STARTTLS=True",
+          + "AIRFLOW__SMTP__SMTP_USER=your_email@gmail.com",
+          + "_PIP_ADDITIONAL_REQUIREMENTS=psutil",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "apache/airflow:2.10.4"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "airflow-scheduler"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "always"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+
+      + volumes {
+          + container_path = "/opt/airflow/dags"
+          + host_path      = "C:/Users/Rasmus/IdeaProjects/projects/dags"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_container.airflow_triggerer will be created
+  + resource "docker_container" "airflow_triggerer" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "triggerer",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "AIRFLOW_UID=50000",
+          + "AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0",
+          + "AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=false",
+          + "AIRFLOW__CORE__EXECUTOR=CeleryExecutor",
+          + "AIRFLOW__CORE__FERNET_KEY=some_random_key",
+          + "AIRFLOW__CORE__LOAD_EXAMPLES=true",
+          + "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__SMTP__SMTP_HOST=smtp.gmail.com",
+          + "AIRFLOW__SMTP__SMTP_MAIL_FROM=your_email@gmail.com",
+          + "AIRFLOW__SMTP__SMTP_PASSWORD=your_app_password",
+          + "AIRFLOW__SMTP__SMTP_PORT=587",
+          + "AIRFLOW__SMTP__SMTP_STARTTLS=True",
+          + "AIRFLOW__SMTP__SMTP_USER=your_email@gmail.com",
+          + "_PIP_ADDITIONAL_REQUIREMENTS=psutil",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "apache/airflow:2.10.4"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "airflow-triggerer"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "always"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+
+      + volumes {
+          + container_path = "/opt/airflow/dags"
+          + host_path      = "C:/Users/Rasmus/IdeaProjects/projects/dags"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_container.airflow_webserver will be created
+  + resource "docker_container" "airflow_webserver" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = [
+          + "webserver",
+        ]
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "AIRFLOW_UID=50000",
+          + "AIRFLOW__CELERY__BROKER_URL=redis://redis:6379/0",
+          + "AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=false",
+          + "AIRFLOW__CORE__EXECUTOR=CeleryExecutor",
+          + "AIRFLOW__CORE__FERNET_KEY=some_random_key",
+          + "AIRFLOW__CORE__LOAD_EXAMPLES=true",
+          + "AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow",
+          + "AIRFLOW__SMTP__SMTP_HOST=smtp.gmail.com",
+          + "AIRFLOW__SMTP__SMTP_MAIL_FROM=your_email@gmail.com",
+          + "AIRFLOW__SMTP__SMTP_PASSWORD=your_app_password",
+          + "AIRFLOW__SMTP__SMTP_PORT=587",
+          + "AIRFLOW__SMTP__SMTP_STARTTLS=True",
+          + "AIRFLOW__SMTP__SMTP_USER=your_email@gmail.com",
+          + "_PIP_ADDITIONAL_REQUIREMENTS=psutil",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "apache/airflow:2.10.4"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "airflow-webserver"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "always"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + user                                        = "50000:0"
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval     = "30s"
+          + retries      = 5
+          + start_period = "30s"
+          + test         = [
+              + "CMD",
+              + "curl",
+              + "--fail",
+              + "http://localhost:8080/health",
+            ]
+          + timeout      = "10s"
+        }
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+
+      + ports {
+          + external = 8000
+          + internal = 8080
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+
+      + volumes {
+          + container_path = "/opt/airflow/dags"
+          + host_path      = "C:/Users/Rasmus/IdeaProjects/projects/dags"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_container.postgres will be created
+  + resource "docker_container" "postgres" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "POSTGRES_DB=airflow",
+          + "POSTGRES_PASSWORD=airflow",
+          + "POSTGRES_USER=airflow",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "postgres:13"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "postgres"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "always"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval     = "10s"
+          + retries      = 5
+          + start_period = "5s"
+          + test         = [
+              + "CMD",
+              + "pg_isready",
+              + "-U",
+              + "airflow",
+            ]
+          + timeout      = "10s"
+        }
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+
+      + ports {
+          + external = 5432
+          + internal = 5432
+          + ip       = "0.0.0.0"
+          + protocol = "tcp"
+        }
+
+      + volumes {
+          + container_path = "/var/lib/postgresql/data"
+          + volume_name    = "postgres_db_volume"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_container.redis will be created
+  + resource "docker_container" "redis" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "redis:7.2-bookworm"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "redis"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "always"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck {
+          + interval     = "10s"
+          + retries      = 5
+          + start_period = "30s"
+          + test         = [
+              + "CMD",
+              + "redis-cli",
+              + "ping",
+            ]
+          + timeout      = "10s"
+        }
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + name         = "airflow_network"
+            # (2 unchanged attributes hidden)
+        }
+    }
+          - "driver" = "host-local"
+        } -> null
+      - ipv6         = false -> null
+        name         = "airflow_network"
+      ~ options      = {} -> (known after apply)
+      ~ scope        = "local" -> (known after apply)
+        # (1 unchanged attribute hidden)
+
+      ~ ipam_config (known after apply)
+      - ipam_config {
+          - aux_address = {} -> null
+          - gateway     = "10.89.0.1" -> null
+          - subnet      = "10.89.0.0/24" -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+Plan: 7 to add, 0 to change, 1 to destroy.
+
+Apply complete! Resources: 7 added, 0 changed, 1 destroyed.
+
+
