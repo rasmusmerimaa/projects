@@ -27,7 +27,7 @@ default_args = {
 with DAG(
         dag_id="memory_monitor_dag",
         default_args=default_args,
-        schedule_interval="@hourly",
+        schedule_interval="* * * * *",
         catchup=False,
 ) as dag:
 

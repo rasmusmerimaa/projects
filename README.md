@@ -27,3 +27,16 @@ Kuna lahendus peab olema käivitatav Windowsi operatsioonisüsteemil, siis proov
 - Saata tegelik testimine e-posti kaudu.
 - Selgitada välja, kas Redis on vajalik.
 - Uurida kas mingi UI graafik / Ram joon on ka võimalik
+
+---
+
+### Käivitamine
+podman machine start
+terraform plan / terraform apply
+
+Browseris http://localhost:8000/
+username: airflow
+password: airflow
+
+Vajutada nupule "Active"
+
